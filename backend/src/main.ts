@@ -20,7 +20,6 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Polymer Trading API')
-    .setDescription('B2B Polymer Trading Platform API')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
@@ -28,7 +27,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3002);
-  console.log('Backend running on http://localhost:3002');
+  const port = process.env.PORT || 3002;
+  await app.listen(port, '0.0.0.0');
 }
+
 bootstrap();

@@ -2,9 +2,9 @@
   "name": "polymer-trading-backend",
   "version": "1.0.0",
   "scripts": {
-    "start": "nest start",
     "start:dev": "nest start --watch",
     "build": "nest build",
+    "start": "node dist/main.js",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:studio": "prisma studio",
