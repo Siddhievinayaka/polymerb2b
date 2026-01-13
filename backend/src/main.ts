@@ -6,7 +6,12 @@ import { AppModule } from './app.module'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
-  app.enableCors()
+  // ⚡ Enable CORS for your frontend
+  app.enableCors({
+    origin: 'https://polymertrader.onrender.com', // allow only your frontend
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true, // if you send cookies or auth headers
+  });
   app.useGlobalPipes(new ValidationPipe())
 
   const config = new DocumentBuilder()
