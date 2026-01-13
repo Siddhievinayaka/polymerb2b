@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum UserStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+}
+
+enum InventoryStatus {
+  ACTIVE
+  SOLD
+}
+
+enum OrderStatus {
+  CREATED
+  CONFIRMED
+  SHIPPED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  RELEASED
+  FAILED
+}
+
+model User {
+  id         String      @id @default(uuid())
+  role       Role
+  email      String      @unique
+  password   String
+  gst        String
+  pan        String
+  status     UserStatus  @default(PENDING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  inventory  Inventory[]
+  orders     Order[]
+}
+
+model Inventory {
+  id            String           @id @default(uuid())
+  sellerId      String
+  polymerType   String
+  grade         String
+  manufacturer  String
+  quantity      Decimal          @db.Decimal(10,2)
+  location      String
+  basePrice     Decimal          @db.Decimal(10,2)
+  status        InventoryStatus  @default(ACTIVE)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  seller        User             @relation(fields: [sellerId], references: [id])
+  orders        Order[]
+
+  @@index([sellerId])
+}
+
+model PlatformMargin {
+  id          String   @id @default(uuid())
+  polymerType String
+  marginType  String   // percentage | fixed
+  marginValue Decimal  @db.Decimal(5,2)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model Order {
+  id            String        @id @default(uuid())
+  buyerId       String
+  inventoryId   String
+  basePrice     Decimal       @db.Decimal(10,2)
+  marginAmount  Decimal       @db.Decimal(10,2)
+  finalPrice    Decimal       @db.Decimal(10,2)
+  orderStatus   OrderStatus   @default(CREATED)
+  paymentStatus PaymentStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  buyer         User          @relation(fields: [buyerId], references: [id])
+  inventory     Inventory     @relation(fields: [inventoryId], references: [id])
+
+  @@index([buyerId])
+  @@index([inventoryId])
+}

@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@import "../css/responsive.css";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --text-title: #155dfcc2;
+  --text-normal-gray: #6a7292;
+  --overlay-bg-color: #0000005a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input[name="search"]::placeholder {
+  color: #155dfcc2;
+}
+
+.input { @apply w-full border px-3 py-2 }
+.btn { @apply bg-black text-white py-2 }
+
+.togg-btn1{
+  position: absolute;
+    top: 27px;
+    right: -32px;
+    transform: translateX(-36px);
+}
+.text-normal-gray{
+  color: var(--text-normal-gray) !important;
+}
+
+.overlay-bg{
+  background: var(--overlay-bg-color);
+}
+
+.jsx-4056898233 .togg-btn1{
+  background: #ededed;
+    border-radius: 0px 8px 8px 0px;
+      transform: translateX(0px);
+
+}
+.text-title{
+  color: var(--text-title) !important;
+}
+.shadow-2xs {
+    --tw-shadow: 0 5px 6px var(--tw-shadow-color, #0000000d);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+.shadow-sm-1 {
+    --tw-shadow: 0 1px 7px 0 var(--tw-shadow-color, #0000001a), 0 1px 2px -1px var(--tw-shadow-color, #0000001a);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+.shadow-sm-side-1 {
+    --tw-shadow: 1px 0px 7px 0 var(--tw-shadow-color, #0000001a), 0 1px 2px -1px var(--tw-shadow-color, #0000001a);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+
+.bg-good-health{
+  
+background: #9cf79cc7;
+    border: 2px solid #63bb63;
+}
+
+.nav-side-mob-bar{
+  display: flex;
+  flex-direction: column;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    width: 200px;
+    right: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    background: #fcfdff;
+    padding: 20px;
+    top: 64px;
+
+    transition: all ease-in-out 0.50s;
+    transform: translateX(100%);
+}
+
+.nav-side-mob-bar.open{
+  transform: translateX(0%);
+}
+
+.profile-menu{
+  padding: 2px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 15px;
+}
